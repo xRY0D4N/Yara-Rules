@@ -1,7 +1,7 @@
 // IOC: 77.91.124.145
-rule Amatey_Redline_Dropped_Executable{
+rule Amadey_Redline_Dropped_Executable{
     meta:
-        description = "This is a rule to detect an executable dropped by Amatey and Redline stealer"
+        description = "This is a rule to detect an executable dropped by Amadey and Redline stealer"
         hash = "B86009831E8D5622ADB3766A04489563"
 	hash2 = "840945659F7415809751CDDFF9C6CDE7"
         filename = "Random name"
