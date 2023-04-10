@@ -9,5 +9,5 @@ rule QabotPDF{
     strings:
       	$url = "/URI (http://gurtek.com.tr/exi/exi.php)" nocase ascii wide
     condition:
-        $URL
+        $url
 }
