@@ -1,0 +1,41 @@
+from backports.pbkdf2 import pbkdf2_hmac
+from base64 import b64decode
+from Crypto.Cipher import AES
+from Crypto.Cipher import AES
+from cryptography.hazmat.primitives import padding
+from cryptography.hazmat.primitives.ciphers import algorithms
+
+salt = b"\xbf\xeb\x1e\x56\xfb\xcd\x97\x3b\xb2\x19\x02\x24\x30\xa5\x78\x43\x00\x3d\x56\x44\xd2\x1e\x62\xb9\xd4\xf1\x80\xe7\xe6\xc3\x39\x41"
+k = b"emFVd1BMcnk5amFrQUxyYVQzRFUxN0Z6Q015SlZ5S0g="
+def aes_decrypt(to_decrypt: bytes, key: bytes, iv: bytes, mode: int) -> bytes:
+    p = padding.PKCS7(algorithms.AES(key).block_size).unpadder()
+    return p.update(AES.new(key, mode, iv=iv).decrypt(to_decrypt)) + p.finalize()
+lst = [
+    "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"
+]
+key = b64decode(k)
+dec_key = pbkdf2_hmac("sha1", key, salt, 50000, 32)
+
+for v in lst:
+    data = b64decode(v)
+    iv = data[32:48]
+    key = dec_key
+
+    aes = AES.new(key, AES.MODE_CBC, iv)
+
+    decrypted_data = aes_decrypt(data[48:], key, data[32:48], AES.MODE_CBC)
+
+    print("Decrypted: ",decrypted_data,"\n")
+
+
